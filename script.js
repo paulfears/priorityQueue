@@ -124,4 +124,4 @@ function a(){
   console.log(a.getIndex("mouse"))
 }
 //a()
-*//
+*/
