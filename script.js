@@ -55,7 +55,10 @@ priorityQueue = function(){
         }
         return false;
       }
-      this.getitem = function (index){
+      this.getItemByKey(lookupid){
+        return this.items[lookupid];
+      }
+      this.getitemByIndex = function (index){
         return this.queue[index];
       }
       this.getIndex = function(lookupid){
