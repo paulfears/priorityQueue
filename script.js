@@ -24,29 +24,22 @@ priorityQueue = function(){
         let start = 0
         let end = this.queue.length
         while(end-start > 1){
-          console.log("end index is"+end)
-          console.log("start index is"+start)
           let checkIndex = Math.floor((start+end)/2)
           if(ranking === this.queue[checkIndex].value){
             if(checkIndex === 0){
               return checkIndex
             }
             while(checkIndex>0 && this.queue[checkIndex-1].value == ranking){
-              console.log("trapped")
               checkIndex -= 1
             }
             return checkIndex
           }
           if(this.queue[checkIndex].value > ranking){
-            console.log("end before update"+end)
             end = checkIndex;
-            console.log("end after update"+end)
             continue;
           }
           if(this.queue[checkIndex].value < ranking){
-            console.log("start before update "+start)
             start = checkIndex;
-            console.log("start after update "+start)
           }
         }
         if(ranking > this.queue[start].value){
@@ -66,12 +59,8 @@ priorityQueue = function(){
         return this.queue[index];
       }
       this.getIndex = function(lookupid){
-        console.log("here")
         let ranking = this.items[lookupid].value
-        console.log("here")
         let index = this._binarySearch(ranking)
-        console.log("here")
-        console.log("_binarySearch says index is "+index);
         while(this.queue[index].value== ranking && index+1 < this.queue.length){
           
           if(this.queue[index].lookupid === lookupid){
@@ -82,7 +71,16 @@ priorityQueue = function(){
         return -1;
 
       }
-      this.deleteItem = function(lookupid){
+      this.replace = function(newItem, newValue, lookupid){
+        this.delete(lookupid);
+        this.insert(newItem, newValue, lookupid);
+      }
+      this.delete = function(lookupid){
+        if(this.hasItem(lookupid)){
+          let index = this.getIndex(lookupid)
+          this.queue.splice(index, 1)
+          delete this.items[lookupid]
+        }
 
       }
 
@@ -97,31 +95,4 @@ priorityQueue = function(){
 }
 
 
-/*
-testing
-console.log("here")
-function a(){
-  console.log("here")
-  a = new graph.priorityQueue();
-  a.insert("hello", 5);
-  a.insert("yo", 0);
-  a.insert("yup", 3, "mouse");
-  a.insert("give", 4);
-  a.insert("go", 1000)
-  a.insert("yes", 3);
-  a.insert("tiny", -5);
-  a.insert("8", 8);
-  a.insert("yes", Infinity)
-  a.insert("okay", 3);
-  a.insert("go", 3);
-  a.insert("yesplease", 3)
-  a.insert("yum", 3)
-  a.insert("bang", 3, "yes")
 
-  console.log(a.queue)
-  console.log("okay")
-  console.log(a.getIndex("yes"))
-  console.log(a.getIndex("mouse"))
-}
-//a()
-*/
